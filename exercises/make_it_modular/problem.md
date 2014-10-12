@@ -1,56 +1,54 @@
-This problem is the same as the previous but introduces the concept of **modules**. You will need to create two files to solve this.
+Este problema es similar al anterior e introduce la idea de **módulos**. Deberás crear dos archivos para resolver el ejercicio.
 
-Create a program that prints a list of files in a given directory, filtered by the extension of the files. The first argument is the directory name and the second argument is the extension filter. Print the list of files (one file per line) to the console. You **must** use asynchronous I/O.
+El programa debe imprimir el listado de archivos de un directorio filtrando por extensión. Nuevamente el primer argumento será la ruta al directorio (ej: '/path/dir/') y el segundo la extensión a filtrar, por ejemplo si recibes 'txt' deberás filtrar todos los archivos que **terminen en .txt**. **Debes** usar Async I/O.
 
-You must write a *module* file to do most of the work. The module must *export* a single function that takes **three** arguments: the directory name, the filename extension string and a callback function, in that order. The filename extension argument must be the same as was passed to your program. i.e. don't turn it into a RegExp or prefix with "." or do anything else but pass it to your module where you can do what you need to make your filter work.
+Deberás escribir un archivo *modular* para hacer la tarea. Dicho módulo debe *exportar* una función que reciba **tres** parámetros en orden: la ruta del directorio, la extensión para filtrar y una función de callback. La idea es encapsular toda la lógica dentro del módulo.
 
-The callback function must be called using the idiomatic node(err, data) convention. This convention stipulates that unless there's an error, the first argument passed to the callback will be null, and the second will be your data. In this case, the data will be your filtered list of files, as an Array. If you receive an error, e.g. from your call to  `fs.readdir()`, the callback must be called with the error, and only the error, as the first argument.
+En Node, los callbacks suelen tener una firma convencional de tener (error, data). Esto implica que si hay un error el primer parámetro devuelve el error sino viene `null` y el segundo parámetro son los datos. Para este ejercicio los datos a devolver es la lista de archivos en forma de Array. Si occurre un error, por ejemplo en la llamada a `fs.readdir()`, el callback debe llamarse con dicho error.
 
-You **must** not print directly to the console from your module file, only from your original program.
+Para completar el ejercicio **debes** imprimir desde el módulo y no desde el programa principal. En caso de que el módulo devuelva un error el programa deberá imprimir en consola la información del error.
 
-In the case of an error bubbling up to your original program file, simply check for it and print an informative message to the console.
+El módulo debe cumplir el siguiente contrato:
 
-These four things is the contract that your module must follow.
+1. Exportar una función que reciba los parámetros mencionados.
+2. Llamar al callback una única vez cuando ocurre un error o con la lista correspondiente.
+3. No debe modificar variables globales o stdout.
+4. Capturar los posibles errores y devolverlos en el callback.
 
-1. Export a single function that takes exactly the arguments described.
-2. Call the callback exactly once with an error or some data as described.
-3. Don't change anything else, like global variables or stdout.
-4. Handle all the errors that may occur and pass them to the callback.
-
-The benefit of having a contract is that your module can be used by anyone who expects this contract. So your module could be used by anyone else who does learnyounode, or the verifier, and just work.
+La ventaja de usar contratos es que el módulo puede ser usado por cualquiera que asuma este contrato.
 
 ----------------------------------------------------------------------
-## HINTS
+## PISTAS
 
-Create a new module by creating a new file that just contains your directory reading and filtering function. To define a *single function* *export*, you assign your function to the `module.exports` object, overwriting what is already there:
+Para crear un módulo basta con crear un nuevo archivo en el directorio de trabajo. Para definir una *función de export*, debes asignar la función al objeto global `module.exports`, por ejemplo:
 
 ```js
 module.exports = function (args) { /* ... */ }
 ```
 
-Or you can use a named function and assign the name.
+También puedes usar una función con nombre y asignar el nombre a exports.
 
-To use your new module in your original program file, use the `require()` call in the same way that you `require('fs')` to load the `fs` module. The only difference is that for local modules must be prefixed with './'. So, if your file is named mymodule.js then:
+Para llamar a esta función desde el programa debes usar `require` de la misma forma que para cargar el módulo de `fs` salvo que debes agregar el prefijo './' para indicar que es un archivo del directorio actual. Por ejemplo si tu módulo se llama 'mymodule.js' deberás usar:
 
 ```js
 var mymodule = require('./mymodule.js')
 ```
 
-The '.js' is optional here and you will often see it omitted.
+El '.js' es opcional y en la mayoría de los casos se omite.
 
-You now have the `module.exports` object in your module assigned to the `mymodule` variable. Since you are exporting a single function, `mymodule` is a function you can call!
+Ahora ya tienes cargada la función del módulo en la variable `mymodule` y la puedes invocar.
 
-Also keep in mind that it is idiomatic to check for errors and do early-returns within callback functions:
+Ten en cuenta que es buena práctica en Node controlar errores y devolverlos bien al principio del código:
 
 ```js
 function bar (callback) {
   foo(function (err, data) {
     if (err)
-      return callback(err) // early return
+      return callback(err) // devolver el error
 
-    // ... no error, continue doing cool things with `data`
+    // ... no hay error, continuar con los cálculos.
 
-    // all went well, call callback with `null` for the error argument
+    // si todo termina bien, llamar el callback con `null` como parámetro de error
 
     callback(null, data)
   })

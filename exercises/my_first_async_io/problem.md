@@ -1,23 +1,24 @@
-Write a program that uses a single **asynchronous** filesystem operation to read a file and print the number of newlines it contains to the console (stdout), similar to running `cat file | wc -l`.
+Escribe un programa que use operación de sistema de archivos asíncrona para leer un archivo e imprimir en consola el número de líneas (terminadas en '\n') que contiene. Similar a  ejecutar `cat file | wc -l`.
 
-The full path to the file to read will be provided as the first command-line argument.
+El programa recibirá la ruta al archivo como único argumento.
 
 ----------------------------------------------------------------------
-# HINTS
+# PISTAS
 
-The solution to this problem is *almost* the same as the previous problem except you must now do it **the Node.js way**: asynchronous.
+La resolución es similar al problema anterior pero esta vez usaremos **the Node.js way**: asíncronicamente (async).
 
-Instead of `fs.readFileSync()` you will want to use `fs.readFile()` and instead of using the return value of this method you need to collect the value from a callback function that you pass in as the second argument.
+Vamos a sustituir `fs.readFileSync()` por `fs.readFile()` y en lugar de esperar que retorne un valor, vamos a tener que procesar el resultado con una función de callback que se invoca al terminar la lectura del archivo.
 
-Remember that idiomatic Node.js callbacks normally have the signature:
+La forma abitual de usar callbacks en Node.js es con la siguiente firma:
 
 ```js
-function callback (err, data) { /* ... */ }
+function callback (error, data) { /* ... */ }
 ```
 
-so you can check if an error occurred by checking whether the first argument is truthy. If there is no error, you should have your `Buffer` object as the second argument. As with `readFileSync()`, you can supply 'utf8' as the second argument and put the callback as the third argument and you will get a `String` instead of a `Buffer`.
+Puedes validar si ocurrió un error controlando si el primer parámetro es nulo. Si no hay errores, 'data' será un objeto Buffer de Node.js. 
+Al igual que pasa con `readFileSync()`, puedes pasar 'utf8' como segundo parámetro y luego el callback como tercero de modo de que data sea un `String` y no un `Buffer`.
 
-Documentation on the `fs` module can be found by pointing your browser here:
+Puedes leer la documentación del módulo `fs` en:
   {rootdir:/node_apidoc/fs.html}
 
 ----------------------------------------------------------------------

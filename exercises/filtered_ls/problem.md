@@ -1,26 +1,26 @@
-Create a program that prints a list of files in a given directory, filtered by the extension of the files. You will be provided a directory name as the first argument to your program (e.g. '/path/to/dir/') and a file extension to filter by as the second argument.
+Crea un programa que dado un directorio imprima una lista de archivos filtrados por la extensión. El primer argumento será la ruta al directorio (ej: '/path/dir/') y el segundo la extensión a filtrar, por ejemplo si recibes 'txt' deberás filtrar todos los archivos que **terminen en .txt**. 
 
-For example, if you get 'txt' as the second argument then you will need to filter the list to only files that **end with .txt**. Note that the second argument _will not_ come prefixed with a '.'.
+Nota: el segundo argumento _no incluye_ el punto '.'.
 
-The list of files should be printed to the console, one file per line. You **must** use asynchronous I/O.
+La lista de archivos a imprimir en consola debe hacerse un archivo por línea y debes utilizar Async I/O.
 
 ----------------------------------------------------------------------
-## HINTS
+## PISTAS
 
-The `fs.readdir()` method takes a pathname as its first argument and a callback as its second. The callback signature is:
+La función `fs.readdir()` recibe como parámetros: una ruta(path) y un callback. La firma del callback es:
 
 ```js
-function callback (err, list) { /* ... */ }
+function callback (error, lista) { /* ... */ }
 ```
 
-where `list` is an array of filename strings.
+La `lista` es un arreglo de nombres de archivos de tipo String.
 
-Documentation on the `fs` module can be found by pointing your browser here:
+La documentación del módulo `fs` puede verse en:
   {rootdir:/node_apidoc/fs.html}
 
-You may also find node's `path` module helpful, particularly the `extname` method.
+Además, el módulo `path` puede resultar útil, especialmente la función `extname`.
 
-Documentation on the `path` module can be found by pointing your browser here:
+La documentación del módulo `path` puede verse en:
   {rootdir:/node_apidoc/path.html}
 
 ----------------------------------------------------------------------

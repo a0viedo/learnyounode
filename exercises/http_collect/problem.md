@@ -1,39 +1,40 @@
-Write a program that performs an HTTP GET request to a URL provided to you as the first command-line argument. Collect **all** data from the server (not just the first "data" event) and then write two lines to the console (stdout).
-
-The first line you write should just be an integer representing the number of characters received from the server and the second line should contain the complete String of characters sent by the server.
+Escribe un programa que realice una petición HTTP GET a una URL provista como primer argumento del programa.
+Almacena **todos** los datos recibidos del servidor, es decir no sólo el primer evento "data", y luego escribe a consola dos líneas:
+- En la primera escribe la cantidad de caracteres recibidos.
+- En la segunda escribe la totalidad de caracteres recibidos (todo el string).
 
 ----------------------------------------------------------------------
-## HINTS
+## PISTAS
 
-There are two approaches you can take to this problem: 
+Hay por lo menos dos formas de resolver este problema:
 
-**1)** Collect data across multiple "data" events and append the results together prior to printing the output. Use the "end" event to determine when the stream is finished and you can write the output.
+**1)** Almacenar los datos de todos los eventos "data" para luego agregarlos los resultados antes de imprimirlos por consola. Puedes usar el evento "end" para saber cuando terminas de recibir datos.
 
-**2)** Use a third-party package to abstract the difficulties involved in collecting an entire stream of data. Two different packages provide a useful API for solving this problem (there are likely more!): `bl` (Buffer List) and `concat-stream`; take your pick!
+**2)** Usa un paquete de terceros para evitar los problemas de almacenar el stream completo de datos. Por ejemplo, tienes a disposición: `bl` (Buffer List) o `concat-stream`.
 
   <http://npm.im/bl>
   <http://npm.im/concat-stream>
 
-To install a Node package, use the Node Package Manager `npm`. Simply type:
+Para instalar alguno de estos paquetes usa Node Package Manager `npm` de la siguiente forma:
 
 ```sh
 $ npm install bl
 ```
 
-And it will download and install the latest version of the package into a subdirectory named `node_modules`. Any package in this subdirectory under your main program file can be loaded with the `require` syntax without being prefixed by './':
+Npm descargará el paquete e instalará la última versión disponible en la carpeta `node_modules`. Todos los paquetes instalados ahí pueden cargarse desde tu programa usando `require` sin prefixo. Ejemplo:
 
 ```js
 var bl = require('bl')
 ```
 
-Node will first look in the core modules and then in the `node_modules` directory where the package is located.
+Node busca primero en su núcleo de módulos y si no lo encuentra busca en `node_modules`.
 
-If you don't have an Internet connection, simply make a `node_modules` directory and copy the entire directory for the package you want to use from inside the {appname} installation directory:
+En caso de no tener conexión a Internet, simplemente crea una carpeta `node_modules` y copia el paquete desde el directorio de instalación de {appname}, es decir:
 
   {rootdir:/node_modules/bl}
   {rootdir:/node_modules/concat-stream}
 
-Both `bl` and `concat-stream` can have a stream *piped* in to them and they will collect the data for you. Once the stream has ended, a callback will be fired with the data:
+Ambos paquetes pueden usar un stream *piped* para capturar los datos. Una vez que se acaba el stream se dispara un callback con todos los datos:
 
 ```js
 response.pipe(bl(function (err, data) { /* ... */ }))
@@ -41,9 +42,9 @@ response.pipe(bl(function (err, data) { /* ... */ }))
 response.pipe(concatStream(function (data) { /* ... */ }))
 ```
 
-Note that you will probably need to `data.toString()` to convert from a Buffer.
+Recuerda hacer `data.toString()` para convertir al Buffer de Node a String.
 
-Documentation for both of these modules has been installed along with {appname} on your system and you can read them by pointing your browser here:
+Puedes leer la documentación de ambos módulos en la carpeta de instalación de {appname} en:
 
   {rootdir:/docs/bl.html}
   {rootdir:/docs/concat-stream.html}

@@ -1,14 +1,14 @@
-This problem is the same as the previous problem (HTTP COLLECT) in that you need to use `http.get()`. However, this time you will be provided with **three** URLs as the first three command-line arguments.
+Este ejercicio es similar al anterior puesto que debes usar `http.get()`. Sin embargo, esta vez tu programa recibirá **tres** URLs como argumentos.
 
-You must collect the complete content provided to you by each of the URLs and print it to the console (stdout). You don't need to print out the length, just the data as a String; one line per URL. The catch is that you **must** print them out in the same order as the URLs are provided to you as command-line arguments.
+Tu programa deberá imprimir el contenido de cada una de las URLs en consola en el mismo orden que fueron recibidos los argumentos. No deberás imprimir el largo, solo el contenido como String, pero **debes respetar el orden**.
 
 ----------------------------------------------------------------------
-## HINTS
+## PISTAS
 
-Don't expect these three servers to play nicely! They are not going to give you complete responses in the order you hope, so you can't naively just print the output as you get it because they will be out of order.
+Como las llamas a las URLs son Async es probable que no recibas las respuestas en order por lo que no puedes imprimir las respuestas a medida que llegan.
 
-You will need to queue the results and keep track of how many of the URLs have returned their entire contents. Only once you have them all, you can print the data to the console.
+Tendrás que encolar los resultados y mantener un contado de cuantas peticiones han sido recibidas de modo que al llegar al final podrás imprimir los resultados.
 
-Counting callbacks is one of the fundamental ways of managing async in Node. Rather than doing it yourself, you may find it more convenient to rely on a third-party library such as [async](http://npm.im/async) or [after](http://npm.im/after). But for this exercise, try and do it without any external helper library.
+En la vida real, hay varias bibliotecas como son [async](http://npm.im/async) y [after](http://npm.im/after) que facilitan la continuación de los callbacks. Para el alcance de este ejercicio no es necesario usar bibliotecas externas.
 
 ----------------------------------------------------------------------
