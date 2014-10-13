@@ -13,7 +13,7 @@ En este ejercicio debes crear un servidor HTTP en lugar de un servidor TCP. Usa 
 function callback (request, response) { /* ... */ }
 ```
 
-Los parámetros `request`y `response` son object que representa la petición y su respuesta respectivamente. La petición provee propiedades, como ser el encabezado y los parámetros de la misma. La respuesta permite devolverle al cliente encabezados y un cuerpo (body).
+Los parámetros `request`y `response` son los objetos que representan la petición y su respuesta respectivamente. La petición provee propiedades, como ser el encabezado y los parámetros de la misma. La respuesta permite devolverle al cliente encabezados y un cuerpo (body).
 
 ¡Ten en cuenta que ambos `request` y `response` son stream de Node! Por lo tanto puedes usar APIs de streaming para simplificar el envío de datos.
 
