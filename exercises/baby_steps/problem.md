@@ -3,7 +3,7 @@ Escribe un programa  que reciba uno o más números como argumentos de la consol
 ----------------------------------------------------------------------
 ## PISTAS
 
-Puedes acceder a los argumentos de la línea de comandos usando el objeto global `process`, el cuál tiene una propiedad `argv` que es una lista de con toda la información de la línea. Ej: `process.argv`.
+Puedes acceder a los argumentos de la línea de comandos usando el objeto global `process`, el cual tiene una propiedad `argv` que es una lista de con toda la información de la línea. Ej: `process.argv`.
 
 Para comenzar puedes escribir un programa que contenga:
 
