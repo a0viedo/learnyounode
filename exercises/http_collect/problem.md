@@ -21,7 +21,7 @@ Para instalar alguno de estos paquetes usa Node Package Manager `npm` de la sigu
 $ npm install bl
 ```
 
-Npm descargará el paquete e instalará la última versión disponible en la carpeta `node_modules`. Todos los paquetes instalados ahí pueden cargarse desde tu programa usando `require` sin prefixo. Ejemplo:
+Npm descargará el paquete e instalará la última versión disponible en la carpeta `node_modules`. Todos los paquetes instalados ahí pueden cargarse desde tu programa usando `require` sin prefijo. Ejemplo:
 
 ```js
 var bl = require('bl')
